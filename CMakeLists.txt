@@ -28,10 +28,11 @@ ELSE(WIN32)
   #SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -Wall -Wno-unused-local-typedefs" ) 
   #SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99 -Wall -Wno-unused-local-typedefs" )
   SET(Boost_USE_STATIC_LIBS ON)
-  FIND_PACKAGE(Boost 1.53 REQUIRED COMPONENTS thread date_time system filesystem program_options signals serialization chrono unit_test_framework context coroutine) 
+  FIND_PACKAGE(Boost 1.54 REQUIRED COMPONENTS thread date_time system filesystem program_options signals serialization chrono unit_test_framework context coroutine) 
 
  IF( NOT APPLE )
       SET( pthread pthread )
+      SET( rt rt )
  ENDIF( NOT APPLE )
 ENDIF(WIN32)
 
@@ -47,4 +48,4 @@ add_subdirectory(fc)
 
 
 add_executable( gw_miner getwork_miner.cpp momentum.cpp bitcoin.cpp sphlib-3.0/c/sha2big.c )
-target_link_libraries( gw_miner fc ${BOOST_LIBRARIES} ${BOOST_LIBRARIES} fc )
+target_link_libraries( gw_miner fc ${BOOST_LIBRARIES} ${BOOST_LIBRARIES} fc ${pthread} ${rt})
