@@ -48,4 +48,4 @@ add_subdirectory(fc)
 
 
 add_executable( gw_miner getwork_miner.cpp momentum.cpp bitcoin.cpp sphlib-3.0/c/sha2big.c )
-target_link_libraries( gw_miner fc ${BOOST_LIBRARIES} ${BOOST_LIBRARIES} fc ${pthread} ${rt})
+target_link_libraries( gw_miner fc ${BOOST_LIBRARIES} ${BOOST_LIBRARIES} fc ${pthread} ${rt} ${Boost_COROUTINE_LIBRARY})
