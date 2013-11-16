@@ -41,11 +41,19 @@ include_directories( ${OPENSSL_INCLUDE_DIR} )
 include_directories( ${Boost_INCLUDE_DIR} )
 SET( ALL_OPENSSL_LIBRARIES ${OPENSSL_LIBRARIES} ${SSL_EAY_RELEASE} ${LIB_EAY_RELEASE})
 
-include_directories( fc/include )
+include_directories( bitshares/fc/include )
+include_directories( bitshares/include )
 include_directories( sphlib-3.0/c)
+include_directories( bitshares/vendor/leveldb-1.12.0/include )
 
-add_subdirectory(fc)
+add_subdirectory(bitshares)
 
 
 add_executable( gw_miner getwork_miner.cpp momentum.cpp bitcoin.cpp sphlib-3.0/c/sha2big.c )
 target_link_libraries( gw_miner fc ${BOOST_LIBRARIES} ${BOOST_LIBRARIES} fc ${pthread} ${rt} ${Boost_COROUTINE_LIBRARY})
+
+add_executable( pool_miner pool_miner.cpp momentum.cpp bitcoin.cpp sphlib-3.0/c/sha2big.c )
+target_link_libraries( pool_miner fc ${BOOST_LIBRARIES} ${BOOST_LIBRARIES} fc ${pthread} ${rt} ${Boost_COROUTINE_LIBRARY} bshare)
+
+add_executable( pool_server server.cpp momentum.cpp bitcoin.cpp sphlib-3.0/c/sha2big.c )
+target_link_libraries( pool_server fc ${BOOST_LIBRARIES} ${BOOST_LIBRARIES} fc ${pthread} ${rt} ${Boost_COROUTINE_LIBRARY} bshare leveldb)
