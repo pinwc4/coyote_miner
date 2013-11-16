@@ -9,7 +9,7 @@ Build
 
 git clone https://github.com/InvictusInnovations/BitShares.git bitshares
 cd bitshares
-git clone https://github.com/InvictusInnovations/BitShares.git fc
+git clone https://github.com/InvictusInnovations/fc.git
 cmake . -DCMAKE_BUILD_TYPE=Release
 make
 
