@@ -53,7 +53,7 @@ add_executable( gw_miner getwork_miner.cpp momentum.cpp bitcoin.cpp sphlib-3.0/c
 target_link_libraries( gw_miner fc ${BOOST_LIBRARIES} ${BOOST_LIBRARIES} fc ${pthread} ${rt} ${Boost_COROUTINE_LIBRARY})
 
 add_executable( pool_miner pool_miner.cpp momentum.cpp bitcoin.cpp sphlib-3.0/c/sha2big.c )
-target_link_libraries( pool_miner fc ${BOOST_LIBRARIES} ${BOOST_LIBRARIES} fc ${pthread} ${rt} ${Boost_COROUTINE_LIBRARY} bshare)
+target_link_libraries( pool_miner bshare fc ${Boost_COROUTINE_LIBRARY} ${BOOST_LIBRARIES} ${pthread} ${rt})
 
 add_executable( pool_server server.cpp momentum.cpp bitcoin.cpp sphlib-3.0/c/sha2big.c )
-target_link_libraries( pool_server fc ${BOOST_LIBRARIES} ${BOOST_LIBRARIES} fc ${pthread} ${rt} ${Boost_COROUTINE_LIBRARY} bshare leveldb)
+target_link_libraries( pool_server bshare leveldb fc ${Boost_COROUTINE_LIBRARY} ${BOOST_LIBRARIES} ${pthread} ${rt})
