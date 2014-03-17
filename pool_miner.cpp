@@ -62,7 +62,7 @@ int main( int argc, char** argv )
     try {
        if( argc == 1 )
        {
-            std::cerr<<"Usage: "<<argv[0]<<" HOST PTS_ADDRESS [THREADS=HARDWARE]\n";
+            std::cerr<<"Usage: "<<argv[0]<<" HOST:PORT WORKERNAME [OPTIONAL THREAD NUMBER]\n";
             std::cerr<<"Performing Benchmark...\n";
             fc::sha256 base;
             auto start = fc::time_point::now();
@@ -80,7 +80,7 @@ int main( int argc, char** argv )
        }
        if( argc < 3 )
        {
-            std::cerr<<"Usage: "<<argv[0]<<" HOST PTS_ADDRESS\n";
+            std::cerr<<"Usage: "<<argv[0]<<" HOST:PORT WORKERNAME [OPTIONAL THREAD NUMBER]\n";
             return -1;
        }
        std::string host    = argv[1];
@@ -90,7 +90,15 @@ int main( int argc, char** argv )
           get_thread_count() = fc::variant( std::string(argv[3]) ).as_uint64();
        }
 
-       std::vector<fc::ip::endpoint> eps = fc::resolve( host, 4444 );
+       int poscolon = host.find_first_of(':');
+       std::string portstring = host.substr(poscolon+1), hostname = host.substr(0,poscolon);
+       int portnumber = atoi(portstring.c_str());
+       if (portnumber <= 0 || portnumber > 65535)
+       {
+          portnumber = 4444;
+       }
+
+       std::vector<fc::ip::endpoint> eps = fc::resolve( hostname, portnumber );
        while( true )
        {
           bts::network::stcp_socket_ptr sock = std::make_shared<bts::network::stcp_socket>();
