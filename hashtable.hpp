@@ -3,7 +3,7 @@
 #include <vector>
 #include <array>
 
-#define BIG_TABLE 1
+#define BIG_TABLE 0
 #if BIG_TABLE
 const int TABLE_SIZE =  ((1<<26)*1.5);
 #else
