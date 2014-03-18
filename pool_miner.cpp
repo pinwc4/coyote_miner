@@ -1,7 +1,7 @@
 #include "bitcoin.hpp"
 #include <boost/exception/diagnostic_information.hpp>
 #include <iostream>
-#include <bts/network/stcp_socket.hpp>
+#include "stcp_socket.hpp"
 #include <algorithm>
 #include "momentum.hpp"
 #include "work_message.hpp"

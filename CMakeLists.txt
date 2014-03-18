@@ -17,10 +17,7 @@ IF( WIN32 )
   #boost
   SET( Boost_INCLUDE_DIR $ENV{BOOST_ROOT} )
 
-  include_directories( ${BITSHARES_DIR}/vendor/leveldb-win/include )
 ELSE(WIN32)
-  include_directories( ${BITSHARES_DIR}/vendor/leveldb-1.12.0/include )
-  include_directories( ${BITSHARES_DIR}/vendor/qtmacextras/include )
 
   MESSAGE(status "Compiling on UNIX")
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -Wall -Wno-unused-local-typedefs -fmax-errors=3 -msse4.2" ) 
@@ -41,12 +38,10 @@ include_directories( ${OPENSSL_INCLUDE_DIR} )
 include_directories( ${Boost_INCLUDE_DIR} )
 SET( ALL_OPENSSL_LIBRARIES ${OPENSSL_LIBRARIES} ${SSL_EAY_RELEASE} ${LIB_EAY_RELEASE})
 
-include_directories( bitshares/fc/include )
-include_directories( bitshares/include )
+include_directories( fc/include )
 include_directories( sphlib-3.0/c)
-include_directories( bitshares/vendor/leveldb-1.12.0/include )
 
-add_subdirectory(bitshares)
+add_subdirectory(fc)
 
-add_executable( pool_miner pool_miner.cpp momentum.cpp bitcoin.cpp sphlib-3.0/c/sha2big.c )
-target_link_libraries( pool_miner bshare fc ${Boost_COROUTINE_LIBRARY} ${BOOST_LIBRARIES} ${pthread} ${rt})
+add_executable( pool_miner pool_miner.cpp stcp_socket.cpp momentum.cpp bitcoin.cpp sphlib-3.0/c/sha2big.c )
+target_link_libraries( pool_miner fc ${Boost_COROUTINE_LIBRARY} ${BOOST_LIBRARIES} ${pthread} ${rt})
